@@ -86,7 +86,6 @@ public class NoteControllerTest {
 		mockMvc.perform(post("/add").param("noteTitle", note.getNoteTitle()).param("noteContent", "")
 				.param("noteStatus", note.getNoteStatus())).andExpect(status().isOk()).andExpect(view().name("index"))
 				.andExpect(forwardedUrl("index"));
-
 	}
 
 	@Test

@@ -1,5 +1,8 @@
 package com.stackroute.keepnote.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /*
@@ -9,53 +12,72 @@ import java.time.LocalDateTime;
  * process of looking through that particular Java object to recreate it as a table in your database.
  */
 
+@Entity
 public class Note {
+
+	@Id
+	@Column
+	int noteId;
+	@Column
+	String noteTitle;
+	@Column
+	String noteStatus;
+	@Column
+	String noteContent;
+	@Column
+	LocalDateTime createdAt;
 
 	public Note() {
 
 	}
 
-	public Note(int i, String string, String string2, String string3, LocalDateTime localDate) {
+	public Note(int noteId, String noteTitle, String noteStatus, String noteContent, LocalDateTime createdAt) {
+		this.noteId = noteId;
+		this.noteTitle = noteTitle;
+		this.noteStatus = noteStatus;
+		this.noteContent = noteContent;
+		this.createdAt = createdAt;
 	}
 
 	public int getNoteId() {
 
-		return 0;
+		return this.noteId;
 	}
 
 	public String getNoteTitle() {
 
-		return null;
+		return this.noteTitle;
 	}
 
 	public String getNoteContent() {
 
-		return null;
+		return this.noteContent;
 	}
 
 	public String getNoteStatus() {
 
-		return null;
+		return this.noteStatus;
 	}
 
 	public void setNoteId(int parseInt) {
+		this.noteId=parseInt;
 
 	}
 
 	public void setNoteTitle(String parameter) {
-
+		this.noteTitle=parameter;
 	}
 
 	public void setNoteContent(String parameter) {
-
+		this.noteContent=parameter;
 	}
 
 	public void setNoteStatus(String parameter) {
-
+		this.noteStatus=parameter;
 	}
 
 	public void setCreatedAt(LocalDateTime now) {
-
+		this.createdAt=now;
 	}
 
 }

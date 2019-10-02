@@ -2,9 +2,14 @@ package com.stackroute.keepnote.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.stackroute.keepnote.model.Note;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /*
  * This class is implementing the NoteDAO interface. This class has to be annotated with @Repository
@@ -16,13 +21,19 @@ import com.stackroute.keepnote.model.Note;
  * 					context.  
  * */
 
+
+@Repository
 public class NoteDAOImpl implements NoteDAO {
 
-	/*
+	 /*
 	 * Autowiring should be implemented for the SessionFactory.
 	 */
+	 @Autowired
+	 SessionFactory sessionFactory;
 
 	public NoteDAOImpl(SessionFactory sessionFactory) {
+
+		this.sessionFactory=sessionFactory;
 
 	}
 
@@ -31,7 +42,9 @@ public class NoteDAOImpl implements NoteDAO {
 	 */
 
 	public boolean saveNote(Note note) {
-		return false;
+
+		sessionFactory.getCurrentSession().save(note);
+		return true;
 
 	}
 
@@ -40,7 +53,9 @@ public class NoteDAOImpl implements NoteDAO {
 	 */
 
 	public boolean deleteNote(int noteId) {
-		return false;
+
+		sessionFactory.getCurrentSession().delete(getNoteById(noteId));
+		return true;
 
 	}
 
@@ -49,7 +64,8 @@ public class NoteDAOImpl implements NoteDAO {
 	 * order(showing latest note first)
 	 */
 	public List<Note> getAllNotes() {
-		return null;
+
+		return sessionFactory.getCurrentSession().createQuery("from Note").list();
 
 	}
 
@@ -57,14 +73,15 @@ public class NoteDAOImpl implements NoteDAO {
 	 * retrieve specific note from the database(note) table
 	 */
 	public Note getNoteById(int noteId) {
-		return null;
 
+		return sessionFactory.getCurrentSession().get(Note.class,noteId);
 	}
 
 	/* Update existing note */
 
 	public boolean UpdateNote(Note note) {
-		return false;
+		sessionFactory.getCurrentSession().update(note);
+		return true;
 
 	}
 
